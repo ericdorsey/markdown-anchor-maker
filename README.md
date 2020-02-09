@@ -7,7 +7,7 @@ of how the appear in the original sub-header. The link portion is also
 prepended with a #.
 
 To anchor link to ### FooBar Baz Sub Head, for example, use:  
-[FooBar Baz Sub Head](#foobar-baz-sub-head)
+`[FooBar Baz Sub Head](#foobar-baz-sub-head)`
 
 #### Reference
 https://stackoverflow.com/questions/6695439/how-to-link-to-a-named-anchor-in-multimarkdown/15843220#15843220
