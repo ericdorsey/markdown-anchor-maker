@@ -24,3 +24,12 @@ user@box:~$ ./markdownanchormaker.py "### FooBar Baz Sub Head"
 ```
 [FooBar Baz Sub Head](#foobar-baz-sub-head)
 ```
+
+#### Gotchas
+Escape any single quotes (`'`) or double quotes (`"`) in the title being passed with backslashes (`\)`:  
+
+```
+user@box:~$ ./markdownanchormaker.py "### Match Times or \"n/a\""
+
+[Match Times or "n/a"](#match-times-or-na)
+```
