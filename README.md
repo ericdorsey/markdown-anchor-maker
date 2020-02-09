@@ -14,6 +14,13 @@ https://stackoverflow.com/questions/6695439/how-to-link-to-a-named-anchor-in-mul
 
 ### Usage:
 Add double quotes around the title being passed in:  
+
 ```
 user@box:~$ ./markdownanchormaker.py "### FooBar Baz Sub Head"
+```
+
+**Output**  
+
+```
+[FooBar Baz Sub Head](#foobar-baz-sub-head)
 ```
