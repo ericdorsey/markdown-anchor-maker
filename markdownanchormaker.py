@@ -23,14 +23,7 @@ import sys
 import traceback
 import argparse
 
-#try:
-#    string = sys.argv[1]
-#except IndexError as err:
-#    traceback.print_exc()
-#    print("\033[91mINFO: Was the whole title argument not surrounded by double quotes? Exiting.\033[00m")
-#    sys.exit(1)
-
-parser = argparse.ArgumentParser()#description="Generate Markdown inline anchor links")
+parser = argparse.ArgumentParser(description="Generate Markdown inline anchor links")
 
 parser.add_argument("-f", "--file", help="Create multiple anchor links for the whole supplied markdown filename", action="store")
 
