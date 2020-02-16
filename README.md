@@ -79,7 +79,7 @@ markdownanchormaker.py: error: argument -a/--anchor: expected one argument
 ```
 
 #### Escape Backticks and Quotes 
-Escape any backticks (`````) single quotes (`'`) or double quotes (`"`) in 
+Escape any backticks (`` ` ``) single quotes (`'`) or double quotes (`"`) in 
 the header with backslashes (`\)`:  
 
 ```bash
