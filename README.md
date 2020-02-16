@@ -10,6 +10,10 @@ also prepended with a #.
 To create an anchor link to ### FooBar Baz Sub Head, for example:  
 `[FooBar Baz Sub Head](#foobar-baz-sub-head)`
 
+The create links for an entire file `-f` / `--file` mode is useful for 
+quickly creating Table of Contents links for all `# Headers` in the 
+entire Markdown document. 
+
 #### Reference
 https://stackoverflow.com/questions/6695439/how-to-link-to-a-named-anchor-in-multimarkdown/15843220#15843220
 
