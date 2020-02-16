@@ -10,7 +10,7 @@ also prepended with a #.
 To create an anchor link to ### FooBar Baz Sub Head, for example:  
 `[FooBar Baz Sub Head](#foobar-baz-sub-head)`
 
-The create links for an entire file `-f` / `--file` mode is useful for 
+The "create links for an entire file" (`-f` / `--file`) mode is useful for 
 quickly creating Table of Contents links for all `# Headers` in the 
 entire Markdown document. 
 
@@ -18,6 +18,23 @@ entire Markdown document.
 https://stackoverflow.com/questions/6695439/how-to-link-to-a-named-anchor-in-multimarkdown/15843220#15843220
 
 ### Usage:
+
+#### Display Help
+```bash
+user@box:~$ ./markdownanchormaker.py -h
+usage: markdownanchormaker.py [-h] [-f FILE] [-a ANCHOR]
+
+Generate Markdown inline anchor links
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -f FILE, --file FILE  Create anchor links for every heading line (ie, lines
+                        starting with '#') in the supplied markdown file
+                        <FILE>
+  -a ANCHOR, --anchor ANCHOR
+                        Create one anchor link out of the double quoted string
+                        <ANCHOR>
+```
 
 #### Create A Single Anchor 
 Use the `-a` flag followed by the header text to be converted into an anchor.
