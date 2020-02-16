@@ -29,8 +29,8 @@ def get_pretty_title(string):
 def anchor_maker(string):
     # Replace spaces with dashes
     string = re.sub(r"\s", r"-", string, flags=re.IGNORECASE)
-    # Drop any characters that aren't "-", "_", a letter, number or a space
-    string = re.sub(r"[^-_a-z0-9\s]", r"", string, flags=re.IGNORECASE)
+    # Drop any characters that aren't "-", "_", ".", a letter, number or a space
+    string = re.sub(r"[^-_.a-z0-9\s]", r"", string, flags=re.IGNORECASE)
     # Add a single # to the front of the string
     string = re.sub(r"^(.*)$", r"#\1", string, flags=re.IGNORECASE)
     # Add parentheses around the whole string
