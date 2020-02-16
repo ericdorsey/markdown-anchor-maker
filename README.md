@@ -45,11 +45,23 @@ Created anchor links:
 ```
 
 
-#### Gotchas
-Escape any single quotes (`'`) or double quotes (`"`) in the header with backslashes (`\)`:  
+### Gotchas
 
+#### Use Double Quotes Around Entire Header When Creating Single Anchor
+Without quotes around the entire header, `##`, `Some` and `Header` are all 
+received as distinct arguments (3 in this case instead of the intended 1)
+
+```bash
+user@box:~$ ./markdownanchormaker.py -a ## Some Header
+usage: markdownanchormaker.py [-h] [-f FILE] [-a ANCHOR]
+markdownanchormaker.py: error: argument -a/--anchor: expected one argument
 ```
-user@box:~$ ./markdownanchormaker.py "### Match Times or \"n/a\""
 
+#### Escape Backticks and Quotes 
+Escape any backticks (````) single quotes (`'`) or double quotes (`"`) in 
+the header with backslashes (`\)`:  
+
+```bash
+user@box:~$ ./markdownanchormaker.py -a "### Match Times or \"n/a\""
 [Match Times or "n/a"](#match-times-or-na)
 ```
