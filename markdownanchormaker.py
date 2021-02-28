@@ -65,8 +65,7 @@ if args.file:
             full_title_and_link = output_title_and_link(pretty_part, anchor_link)
             collection_of_titles.append(full_title_and_link)
     if no_titles_found == True:
-        if not args.only_headers:
-            print(f"""No lines starting with "#" were found in {args.file}""")
+        print(f"""No lines starting with "#" were found in {args.file}""")
     elif no_titles_found == False:
         if not args.only_headers:
             print(f"Headings found in {args.file}:")
