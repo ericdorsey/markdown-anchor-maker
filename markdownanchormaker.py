@@ -10,6 +10,8 @@ parser.add_argument("-f", "--file", help="Create anchor links for every heading 
 
 parser.add_argument("-a", "--anchor", help="Create one anchor link out of the double quoted string <ANCHOR>", action="store")
 
+parser.add_argument("-o", "--only-headers", help="Don't show headers found. Only output the created header links", action="store_true")
+
 args = parser.parse_args()
 
 vars_args = vars(args)
@@ -35,13 +37,14 @@ def anchor_maker(string):
     string = re.sub(r"^(.*)$", r"#\1", string, flags=re.IGNORECASE)
     # Add parentheses around the whole string
     string = re.sub(r"^(.*)$", r"(\1)", string, flags=re.IGNORECASE)
-    # If there is a leading dash (ie, #-something-something)  get rid of it
-    string = re.sub(r"^\(#-", r"(#", string)
+    # If there is a leading dash(es) (ie, #-something-something or #--something) get rid of them
+    string = re.sub(r"^\(#-+", r"(#", string, flags=re.IGNORECASE)
     # Make everything lowercase
     string = string.lower()
     return string
 
 def output_title_and_link(pretty_part, anchor_link):
+    # Add two spaces at the end of the string for newline in Markdown
     full_title_and_link = f"[{pretty_part}]{anchor_link}  "
     return full_title_and_link
 
@@ -62,15 +65,17 @@ if args.file:
             full_title_and_link = output_title_and_link(pretty_part, anchor_link)
             collection_of_titles.append(full_title_and_link)
     if no_titles_found == True:
-        print(f"""No lines starting with "#" were found in {args.file}""")
+        if not args.only_headers:
+            print(f"""No lines starting with "#" were found in {args.file}""")
     elif no_titles_found == False:
-        print(f"Headings found in {args.file}:")
-        print()
-        for j in collection_of_titles_before:
-            print(j)
-        print()
-        print("Created anchor links:")
-        print()
+        if not args.only_headers:
+            print(f"Headings found in {args.file}:")
+            print()
+            for j in collection_of_titles_before:
+                print(j)
+            print()
+            print("Created anchor links:")
+            print()
         for k in collection_of_titles:
             print(k)
             
