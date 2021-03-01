@@ -1,28 +1,26 @@
-### What 
-Builds inline (same document) anchor links to headers (lines starting with #) 
-in a Markdown document. 
+# About
+Builds inline (AKA anchor) links for headers (lines starting with one or more `#`'s) in a Markdown document. 
 
 Anchor links within Markdown require that spaces be replaced with dashes, and
 "special" characters are dropped entirely. All characters are lowercase in the 
 link regardless of how the appear in the original header. The link portion is 
-also prepended with a #.
+also prepended with a `#`.
 
-To create an anchor link to ### FooBar Baz Sub Head, for example:  
+To create an anchor link to ### FooBar Baz Sub Head, for example:
 `[FooBar Baz Sub Head](#foobar-baz-sub-head)`
 
-The "create links for an entire file" (`-f` / `--file`) mode is useful for 
+The create links for an entire file (`-f` / `--file`) mode is useful for 
 quickly creating Table of Contents links for all `# Headers` in the 
 entire Markdown document. 
 
-#### Reference
-https://stackoverflow.com/questions/6695439/how-to-link-to-a-named-anchor-in-multimarkdown/15843220#15843220
+Ref: https://stackoverflow.com/questions/6695439/how-to-link-to-a-named-anchor-in-multimarkdown/15843220#15843220
 
-### Usage:
+# Usage
 
-#### Display Help
+## Display Help
 ```bash
-user@box:~$ ./markdownanchormaker.py -h
-usage: markdownanchormaker.py [-h] [-f FILE] [-a ANCHOR]
+$ ./markdownanchormaker.py -h
+usage: markdownanchormaker.py [-h] [-f FILE] [-a ANCHOR] [-o]
 
 Generate Markdown inline anchor links
 
@@ -34,22 +32,24 @@ optional arguments:
   -a ANCHOR, --anchor ANCHOR
                         Create one anchor link out of the double quoted string
                         <ANCHOR>
+  -o, --only-headers    Don't show headers found. Only output the created
+                        header links
 ```
 
-#### Create A Single Anchor 
+## Create A Single Anchor 
 Use the `-a` flag followed by the header text to be converted into an anchor.
 
 Enclose the whole header text in double quotes:
 
 ```bash
-user@box:~$ ./markdownanchormaker.py -a "## Some Header"
+$ ./markdownanchormaker.py -a "## Some Header"
 [Some Header](#some-header)
 ```
 
-#### Create Anchors For Every Header In A Markdown File
+## Create Anchors For Every Header In A Markdown File
 
 ```bash
-user@box:~$ ./markdownanchormaker.py -f test.md
+$ ./markdownanchormaker.py -f test.md
 Headings found in test.md:
 
 # Big Initial Title
@@ -65,24 +65,36 @@ Created anchor links:
 [Four Hashtag Title Thing](#four-hashtag-title-thing)
 ```
 
+## Only Output Created Headers
+Use the `-o` flag to output only the generated inline links
 
-### Gotchas
 
-#### Use Double Quotes Around Entire Header When Creating Single Anchor
-Without quotes around the entire header, `##`, `Some` and `Header` are all 
-received as distinct arguments (3 in this case instead of the intended 1)
+# Gotchas
+
+## Use Double Quotes Around Entire Header When Creating Single Anchor
+Without quotes around the entire header, `##`, `Some` and `Header` are all
+received as distinct arguments (three arguments in this case; instead of the intended one)
+
+### Incorrect
 
 ```bash
-user@box:~$ ./markdownanchormaker.py -a ## Some Header
+$ ./markdownanchormaker.py -a ## Some Header
 usage: markdownanchormaker.py [-h] [-f FILE] [-a ANCHOR]
 markdownanchormaker.py: error: argument -a/--anchor: expected one argument
 ```
 
-#### Escape Backticks and Quotes 
-Escape any backticks (`` ` ``) single quotes (`'`) or double quotes (`"`) in 
-the header with backslashes (`\)`:  
+### Correct
+
+```
+$ ./markdownanchormaker.py -a "## Some Header"
+[Some Header](#some-header)
+```
+
+## Escape Backticks and Quotes 
+Escape any backticks (`` ` ``), single quotes (`'`), or double quotes (`"`) in 
+the header with backslashes (`\)`:
 
 ```bash
-user@box:~$ ./markdownanchormaker.py -a "### Match Times or \"n/a\""
+$ ./markdownanchormaker.py -a "### Match Times or \"n/a\""
 [Match Times or "n/a"](#match-times-or-na)
 ```
