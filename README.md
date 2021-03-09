@@ -98,3 +98,14 @@ the header with backslashes (`\)`:
 $ ./markdownanchormaker.py -a "### Match Times or \"n/a\""
 [Match Times or "n/a"](#match-times-or-na)
 ```
+# Tests
+Run `unittest`s:
+
+```
+$ ./test_markdownanchormaker.py
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.002s
+
+OK
+```
