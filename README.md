@@ -99,7 +99,7 @@ $ ./markdownanchormaker.py -a "### Match Times or \"n/a\""
 [Match Times or "n/a"](#match-times-or-na)
 ```
 # Tests
-Run `unittest`s:
+Run tests:
 
 ```
 $ ./test_markdownanchormaker.py
