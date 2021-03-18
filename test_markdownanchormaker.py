@@ -4,6 +4,14 @@ import unittest
 import sys
 from markdownanchormaker import get_pretty_title
 from markdownanchormaker import anchor_maker
+from markdownanchormaker import replace_spaces_with_dashes
+from markdownanchormaker import drop_unwanted_chars
+from markdownanchormaker import prepend_octothorpe
+from markdownanchormaker import parenthesis_surround
+from markdownanchormaker import remove_leading_dashes
+from markdownanchormaker import make_lowercase
+
+
 from markdownanchormaker import output_title_and_link
 
 class TestGetPrettyTitle(unittest.TestCase):
@@ -26,25 +34,43 @@ class TestGetPrettyTitle(unittest.TestCase):
         self.assertRegex(result, r"^(?:[^\s]+)")
 
 class TestAnchorMaker(unittest.TestCase):
-
-    def test_anchor_maker(self):
+    
+    def test_replace_spaces_with_dashes(self):
         """
-        Test that there are no spaces
-        Test that "special" characters are dropped
-        Test that the string starts with (# and ends with )
-        Test that the string doesn't contain dashes between # and first letter
-        Test that the string is all lowercase
+        Test that spaces are replaced with dashes
         """
-        data = "-  Foo ?baR <baz "
-        result = anchor_maker(data)
+        data = "foo bar baz"
+        result = replace_spaces_with_dashes(data)
         # Test that there are no spaces
         self.assertNotRegex(result, r"(?= )")
+
+    def test_drop_unwanted_chars(self):
+        data = "-  ^Foo* ?baR <baz "
+        result = drop_unwanted_chars(data)
         # Test that there are no "special" characters
         self.assertNotRegex(result, r"(?=[!@$%^&*<>\[\]\{\};:\"'])")
-        # Test that the string starts with (# and ends with )
-        self.assertRegex(result, r"^\(#.*?\)$")
-        # Test that the string doesn't contain dashes between # and first letter
+
+    def test_prepend_octothorpe(self):
+        data = "Foo ?baR <baz "
+        result = prepend_octothorpe(data)
+        # Test that the string starts with #
+        self.assertRegex(result, r"^#")
+
+    def tet_parenthesis_surround(self):
+        data = "# Test Title"
+        result = parenthesis_surround(data)
+        # Test that result starts with ( and ends with )
+        self.assertRegex(result, r"^\(.*?\)$")
+
+    def test_remove_leading_dashes(self):
+        data = "(#-Foo ?baR <baz "
+        result = remove_leading_dashes(data)
+        # Test that the string doesn't contain dashes between (# and first letter
         self.assertNotRegex(result, r"^\(#[-]+")
+
+    def test_make_lowercase(self):
+        data = "UPPERCASE"
+        result = make_lowercase(data)
         # Test that the string is all lowercase
         self.assertNotRegex(result, r"(?=[A-Z])")
 

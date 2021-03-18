@@ -17,19 +17,44 @@ def get_pretty_title(string):
     pretty_part = match.group(1) if match else "COULD NOT GET TITLE"
     return pretty_part
 
-def anchor_maker(string):
+def replace_spaces_with_dashes(string):
     # Replace spaces with dashes
     string = re.sub(r"\s", r"-", string, flags=re.IGNORECASE)
+    return string
+
+def drop_unwanted_chars(string):
     # Drop any characters that aren't "-", "_", a letter, a number or a space
     string = re.sub(r"[^-_a-z0-9\s]", r"", string, flags=re.IGNORECASE)
+    return string
+
+def prepend_octothorpe(string):
     # Add a single # to the front of the string
     string = re.sub(r"^(.*)$", r"#\1", string, flags=re.IGNORECASE)
+    return string
+
+def parenthesis_surround(string):
     # Add parentheses around the whole string
     string = re.sub(r"^(.*)$", r"(\1)", string, flags=re.IGNORECASE)
+    return string
+
+def remove_leading_dashes(string):
     # If there is a leading dash(es) (ie, #-something-something or #--something) get rid of them
     string = re.sub(r"^\(#-+", r"(#", string, flags=re.IGNORECASE)
+    return string
+
+def make_lowercase(string):
     # Make everything lowercase
     string = string.lower()
+    return string
+
+def anchor_maker(string):
+    # Run all the functions that make the anchor and return the string
+    string = replace_spaces_with_dashes(string)
+    string = drop_unwanted_chars(string)
+    string = prepend_octothorpe(string)
+    string = parenthesis_surround(string)
+    string = remove_leading_dashes(string)
+    string = make_lowercase(string)
     return string
 
 def output_title_and_link(pretty_part, anchor_link):
