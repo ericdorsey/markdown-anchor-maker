@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import unittest
-import sys
 from markdownanchormaker import get_pretty_title
 from markdownanchormaker import anchor_maker
 from markdownanchormaker import replace_spaces_with_dashes
@@ -12,8 +11,8 @@ from markdownanchormaker import remove_leading_dashes
 from markdownanchormaker import make_lowercase
 from markdownanchormaker import output_title_and_link
 
-class TestGetPrettyTitle(unittest.TestCase):
 
+class TestGetPrettyTitle(unittest.TestCase):
     def test_result_not_startswith_octothorpe(self):
         """
         Test that result doesn't start with a #; ie the # is removed
@@ -38,8 +37,8 @@ class TestGetPrettyTitle(unittest.TestCase):
         """
         self.assertRaises(TypeError, get_pretty_title, 2)
 
+
 class TestAnchorMaker(unittest.TestCase):
-    
     def test_replace_spaces_with_dashes(self):
         """
         Test that spaces are replaced with dashes
@@ -85,8 +84,8 @@ class TestAnchorMaker(unittest.TestCase):
         """
         self.assertRaises(TypeError, anchor_maker, 8)
 
-class TestOutputTitleAndLink(unittest.TestCase):
 
+class TestOutputTitleAndLink(unittest.TestCase):
     def test_startswith_bracket(self):
         data_pretty_part = "[Three Octothorpe Title]"
         data_anchor_link = "(#three-octothorpe-title)"
@@ -105,6 +104,7 @@ class TestOutputTitleAndLink(unittest.TestCase):
         Assert that a TypeError is raised if passed an integer
         """
         self.assertRaises(TypeError, anchor_maker, 273, 53)
+
 
 if __name__ == "__main__":
     unittest.main()

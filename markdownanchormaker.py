@@ -6,9 +6,24 @@ import argparse
 
 
 def parse_args(args):
-    parser.add_argument("-f", "--file", help="Create anchor links for every heading line (ie, lines starting with '#') in the supplied markdown file <FILE>", action="store")
-    parser.add_argument("-a", "--anchor", help="Create one anchor link out of the double quoted string <ANCHOR>", action="store")
-    parser.add_argument("-o", "--only-headers", help="Don't show headers found. Only output the created header links", action="store_true")
+    parser.add_argument(
+        "-f",
+        "--file",
+        help="Create anchor links for every heading line (ie, lines starting with '#') in the supplied markdown file <FILE>",
+        action="store",
+    )
+    parser.add_argument(
+        "-a",
+        "--anchor",
+        help="Create one anchor link out of the double quoted string <ANCHOR>",
+        action="store",
+    )
+    parser.add_argument(
+        "-o",
+        "--only-headers",
+        help="Don't show headers found. Only output the created header links",
+        action="store_true",
+    )
     return parser.parse_args(args)
 
 
@@ -93,7 +108,9 @@ def output_title_and_link(pretty_part, anchor_link):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Generate Markdown inline anchor links")
+    parser = argparse.ArgumentParser(
+        description="Generate Markdown inline anchor links"
+    )
     args = parse_args(sys.argv[1:])
     if not len(sys.argv) > 1:
         parser.print_help()
