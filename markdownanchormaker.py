@@ -4,12 +4,13 @@ import re
 import sys
 import argparse
 
+
 def parse_args(args):
     parser.add_argument("-f", "--file", help="Create anchor links for every heading line (ie, lines starting with '#') in the supplied markdown file <FILE>", action="store")
     parser.add_argument("-a", "--anchor", help="Create one anchor link out of the double quoted string <ANCHOR>", action="store")
     parser.add_argument("-o", "--only-headers", help="Don't show headers found. Only output the created header links", action="store_true")
-    #args = parser.parse_args()
     return parser.parse_args(args)
+
 
 def get_pretty_title(string):
     """
@@ -19,12 +20,14 @@ def get_pretty_title(string):
     pretty_part = match.group(1) if match else "COULD NOT GET TITLE"
     return pretty_part
 
+
 def replace_spaces_with_dashes(string):
     """
     Replace spaces with dashes
     """
     string = re.sub(r"\s", r"-", string, flags=re.IGNORECASE)
     return string
+
 
 def drop_unwanted_chars(string):
     """
@@ -33,12 +36,14 @@ def drop_unwanted_chars(string):
     string = re.sub(r"[^-_a-z0-9\s]", r"", string, flags=re.IGNORECASE)
     return string
 
+
 def prepend_octothorpe(string):
     """
     Add a single # to the front of the string
     """
     string = re.sub(r"^(.*)$", r"#\1", string, flags=re.IGNORECASE)
     return string
+
 
 def parenthesis_surround(string):
     """
@@ -47,6 +52,7 @@ def parenthesis_surround(string):
     string = re.sub(r"^(.*)$", r"(\1)", string, flags=re.IGNORECASE)
     return string
 
+
 def remove_leading_dashes(string):
     """
     If there is a leading dash(es) (ie, #-something-something or #--something) get rid of them
@@ -54,12 +60,14 @@ def remove_leading_dashes(string):
     string = re.sub(r"^\(#-+", r"(#", string, flags=re.IGNORECASE)
     return string
 
+
 def make_lowercase(string):
     """
     Make everything lowercase
     """
     string = string.lower()
     return string
+
 
 def anchor_maker(string):
     """
@@ -73,6 +81,7 @@ def anchor_maker(string):
     string = make_lowercase(string)
     return string
 
+
 def output_title_and_link(pretty_part, anchor_link):
     """
     Combine the pretty part of the title (ie, just the text) with the actual
@@ -81,6 +90,7 @@ def output_title_and_link(pretty_part, anchor_link):
     """
     full_title_and_link = f"[{pretty_part}]{anchor_link}  "
     return full_title_and_link
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate Markdown inline anchor links")
@@ -103,9 +113,9 @@ if __name__ == "__main__":
                 anchor_link = anchor_maker(i)
                 full_title_and_link = output_title_and_link(pretty_part, anchor_link)
                 collection_of_titles.append(full_title_and_link)
-        if no_titles_found == True:
+        if no_titles_found is True:
             print(f"""No lines starting with "#" were found in {args.file}""")
-        elif no_titles_found == False:
+        elif no_titles_found is False:
             if not args.only_headers:
                 print(f"Headings found in {args.file}:")
                 print()
@@ -116,7 +126,7 @@ if __name__ == "__main__":
                 print()
             for k in collection_of_titles:
                 print(k)
-                
+
     if args.anchor:
         pretty_part = get_pretty_title(args.anchor)
         anchor_link = anchor_maker(args.anchor)
