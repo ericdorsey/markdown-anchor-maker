@@ -1,2 +1,3 @@
 *.pyc
 gitignoreme_*
+.coverage

@@ -10,8 +10,6 @@ from markdownanchormaker import prepend_octothorpe
 from markdownanchormaker import parenthesis_surround
 from markdownanchormaker import remove_leading_dashes
 from markdownanchormaker import make_lowercase
-
-
 from markdownanchormaker import output_title_and_link
 
 class TestGetPrettyTitle(unittest.TestCase):
@@ -26,12 +24,19 @@ class TestGetPrettyTitle(unittest.TestCase):
 
     def test_handles_multiple_spaces_after_octothorpe(self):
         """
-        Test that get_pretty_title() can handle multiple spaces after # in
-        a title, and that those extra spaces are stripped off
+        Test that string returned by get_pretty_title() doesn't start with
+        a space(s). (ie, it can handle multiple spaces after # in a
+        title, and that those extra spaces are stripped off)
         """
         data = "#   Title With Extra Whitespace"
         result = get_pretty_title(data)
         self.assertRegex(result, r"^(?:[^\s]+)")
+
+    def test_passed_an_integer(self):
+        """
+        Assert that a TypeError is raised if passed an integer
+        """
+        self.assertRaises(TypeError, get_pretty_title, 2)
 
 class TestAnchorMaker(unittest.TestCase):
     
@@ -56,7 +61,7 @@ class TestAnchorMaker(unittest.TestCase):
         # Test that the string starts with #
         self.assertRegex(result, r"^#")
 
-    def tet_parenthesis_surround(self):
+    def test_parenthesis_surround(self):
         data = "# Test Title"
         result = parenthesis_surround(data)
         # Test that result starts with ( and ends with )
@@ -74,6 +79,12 @@ class TestAnchorMaker(unittest.TestCase):
         # Test that the string is all lowercase
         self.assertNotRegex(result, r"(?=[A-Z])")
 
+    def test_passed_an_integer(self):
+        """
+        Assert that a TypeError is raised if passed an integer
+        """
+        self.assertRaises(TypeError, anchor_maker, 8)
+
 class TestOutputTitleAndLink(unittest.TestCase):
 
     def test_startswith_bracket(self):
@@ -89,6 +100,11 @@ class TestOutputTitleAndLink(unittest.TestCase):
         result = output_title_and_link(data_pretty_part, data_anchor_link)
         self.assertRegex(result, r"\)  $")
 
+    def test_passed_an_integer(self):
+        """
+        Assert that a TypeError is raised if passed an integer
+        """
+        self.assertRaises(TypeError, anchor_maker, 273, 53)
+
 if __name__ == "__main__":
-    options = [sys.argv[0]]
-    unittest.main(argv=options)
+    unittest.main()

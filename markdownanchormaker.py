@@ -12,43 +12,59 @@ def parse_args(args):
     return parser.parse_args(args)
 
 def get_pretty_title(string):
-    # Grab everything after the # and {one_or_more_spaces} and make it the pretty title
+    """
+    Grab everything after the # and {one_or_more_spaces} and make it the pretty title
+    """
     match = re.search(r"\#\s+(.*?)$", string)
     pretty_part = match.group(1) if match else "COULD NOT GET TITLE"
     return pretty_part
 
 def replace_spaces_with_dashes(string):
-    # Replace spaces with dashes
+    """
+    Replace spaces with dashes
+    """
     string = re.sub(r"\s", r"-", string, flags=re.IGNORECASE)
     return string
 
 def drop_unwanted_chars(string):
-    # Drop any characters that aren't "-", "_", a letter, a number or a space
+    """
+    Drop any characters that aren't "-", "_", a letter, a number or a space
+    """
     string = re.sub(r"[^-_a-z0-9\s]", r"", string, flags=re.IGNORECASE)
     return string
 
 def prepend_octothorpe(string):
-    # Add a single # to the front of the string
+    """
+    Add a single # to the front of the string
+    """
     string = re.sub(r"^(.*)$", r"#\1", string, flags=re.IGNORECASE)
     return string
 
 def parenthesis_surround(string):
-    # Add parentheses around the whole string
+    """
+    Add parenthesis around the whole string
+    """
     string = re.sub(r"^(.*)$", r"(\1)", string, flags=re.IGNORECASE)
     return string
 
 def remove_leading_dashes(string):
-    # If there is a leading dash(es) (ie, #-something-something or #--something) get rid of them
+    """
+    If there is a leading dash(es) (ie, #-something-something or #--something) get rid of them
+    """
     string = re.sub(r"^\(#-+", r"(#", string, flags=re.IGNORECASE)
     return string
 
 def make_lowercase(string):
-    # Make everything lowercase
+    """
+    Make everything lowercase
+    """
     string = string.lower()
     return string
 
 def anchor_maker(string):
-    # Run all the functions that make the anchor and return the string
+    """
+    Run all the functions that make the anchor and return the string
+    """
     string = replace_spaces_with_dashes(string)
     string = drop_unwanted_chars(string)
     string = prepend_octothorpe(string)
@@ -58,7 +74,11 @@ def anchor_maker(string):
     return string
 
 def output_title_and_link(pretty_part, anchor_link):
-    # Add two spaces at the end of the string for newline in Markdown
+    """
+    Combine the pretty part of the title (ie, just the text) with the actual
+    inline/anchor link and format it as a markdown hyperlink, ie: [title](link)
+    Also adds two spaces at the end of the string; for a newline in Markdown
+    """
     full_title_and_link = f"[{pretty_part}]{anchor_link}  "
     return full_title_and_link
 

@@ -68,7 +68,6 @@ Created anchor links:
 ## Only Output Created Headers
 Use the `-o` flag to output only the generated inline links
 
-
 # Gotchas
 
 ## Use Double Quotes Around Entire Header When Creating Single Anchor
@@ -102,10 +101,10 @@ $ ./markdownanchormaker.py -a "### Match Times or \"n/a\""
 Run tests:
 
 ```
-$ ./test_markdownanchormaker.py
-.....
+$ python3 -m unittest
+.............
 ----------------------------------------------------------------------
-Ran 5 tests in 0.002s
+Ran 13 tests in 0.003s
 
 OK
 ```
